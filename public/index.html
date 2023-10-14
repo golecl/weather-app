@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles/client.css">
+    <script src="https://kit.fontawesome.com/144cdf9f3d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>Pack <span class="gradient-text">Smartly</span></h1>
+            <label>
+                <h2>Destination</h2>
+                <div class="searchField" id="searchBar">
+                    <input id="city-input" v-model="city" @input="updateSearchQuery(city)" @focus="clearPredictions"
+                        placeholder="Search...">
+                    <button @click="search(city)"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+                </div>
+                <ul v-if="predictions.length" class="predictions">
+                    <li v-for="prediction in predictions" @click="runSearch(prediction)">{{ prediction.description }}
+                    </li>
+                </ul>
+            </label>
+
+            <div id="map"></div>
+
+            <div class="weather-display" v-if="combinedData.length > 0">
+                <h2>Weather for {{ selectedLocation[2] }}</h2>
+                <ul class="horizontal-table">
+                    <li v-for="(forecast, index) in combinedData" :key="index" class="horizontal-table__item">
+                        <p>Day: {{ forecast.dayNum }}</p>
+                        <p>Average Temperature: {{ forecast.avgTemp }}°C</p>
+                        <p>Rainfall: {{ forecast.rainfall }} mm</p>
+                        <p>Average Wind Speed: {{ forecast.avgWindSpeed }} m/s</p>
+                        <p>Pack for {{ forecast.weatherType }} weather</p>
+                        <p v-if="forecast.itRains">Need an umbrella</p>
+                        <p v-else>No Rain</p>
+                        <p v-if="forecast.needMask">Mask is needed</p>
+                        <p v-else>No mask necessary</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="client.js" async defer></script>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+@font-face {
+    font-family: 'Dela Gothic';
+    src: url('/fonts/Dela_Gothic/DelaGothicOne-Regular.ttf') format('truetype');
+}
+
+:root {
+    --text-color: #311d02;
+    --background-color: #fffdfa;
+    --primary-color: #eb921e;
+    --secondary-color: #fcd5a1;
+    --accent-color: #bc1c10;
+}
+
+.text {
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-family: 'Lato', sans-serif;
+}
+
+.gradient-text {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+h1 {
+    margin: auto;
+    font-family: "Dela Gothic", sans-serif;
+    font-size: 50px;
+}
+
+h2 {
+    margin-bottom: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1500px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchField {
+    display: flex;
+    gap: 0;
+    border-radius: 5px;
+    overflow: clip;
+    height: 30px;
+    max-width: fit-content;
+    box-sizing: border-box; 
+}
+
+.searchField button {
+    margin: 0;
+    border-radius: 0;
+    border: 0;
+    background-color: var(--primary-color);
+    height: 100%;
+    color: white;
+}
+
+.searchField button:active {
+    -webkit-box-shadow: inset 0 0 100px var(--secondary-color);
+    -moz-box-shadow: inset 0 0 100px var(--secondary-color);
+    box-shadow: inset 0 0 100px var(--secondary-color);
+}
+
+.searchField input {
+    margin: 0;
+    border: 0;
+    height: 100%;
+    border-radius: 5px 0px 0px 5px;
+    font-size: medium;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 2px 0px 2px 2px;
+    border-color: var(--primary-color);
+}
+
+.searchField input:active {
+    margin: 0;
+    background-color: var(--background-color);
+    height: 100%;
+    outline: none;
+}
+
+.searchField input:focus {
+    margin: 0;
+    background-color: white;
+    height: 100%;
+    outline: none;
+}
+
+label {
+    text-align: start;
+    max-width: min-content;
+    color: var(--primary-color);
+    position: relative;
+}
+
+.predictions {
+    margin: 0;
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    list-style-type: none;
+    padding-left: 0px;
+    border-radius: 3px;
+    color: var(--text-color);
+    position: absolute; 
+    z-index: 1; 
+    box-shadow: #f5f5f5;
+    width: 100%;
+}
+
+.predictions li {
+    padding: 15px;
+}
+
+.predictions li:hover {
+    background-color: #f5f5f5;
+}
+
+
+.horizontal-table {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.horizontal-table li {
+    margin: 5px;
+    border: 2px solid var(--secondary-color);
+    padding: 10px;
+    max-width: 100%;
+    border-radius: 2px;
+}
+
+.searchContainer {
+    display: flex;
+    padding: 5px;
+    align-items: start;
+}
+
+.toggle {
+    display: flex;
+    align-items: center;
+    margin: 0px 10px;
+}
+
+.toggle input[type="checkbox"] {
+    display: none;
+    /* Hide the default checkbox */
+}
+
+.slider {
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.slider::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    left: 2px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.toggle input[type="checkbox"]:checked+.slider {
+    background-color: var(--accent-color)
+}
+
+.toggle input[type="checkbox"]:checked+.slider::before {
+    transform: translateX(20px);
+    background-color: #fff;
+}
+
+.label-text {
+    margin: 0px 5px;
+    padding: 0px;
+}
+
+#map{
+    height: 400px;
+    width: 500px;
+}
