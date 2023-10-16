@@ -98,4 +98,21 @@ app.get('/getMap/', (req, res) => {
     `);
 });
 
+app.get('/getCity/:lat/:long', async (req, res) => {
+    const lat = req.params.lat;
+    const long = req.params.long;
+
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&units=metric&key=${apiKeyGoogle}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch city details' });
+    }
+});
+
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

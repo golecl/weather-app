@@ -21,15 +21,27 @@ export function updateSearchQuery(query) {
 }
 
 export async function selectCity(city) {
-    
     const placeId = city.place_id;
-    var response = await fetch(`/getPlaceDetails/${placeId}`)
-    var data = await response.json()
+    var response = await fetch(`/getPlaceDetails/${placeId}`);
+    var data = await response.json();
     const latitude = data.geometry.location.lat;
     const longitude = data.geometry.location.lng;
-    const placeName = data.formatted_address;
+    
+    const addressComponents = data.address_components;
+    let cityName, country;
+    
+    for (const component of addressComponents) {
+        if (component.types.includes('locality')) {
+            cityName = component.long_name;
+        } else if (component.types.includes('country')) {
+            country = component.long_name;
+        }
+    }
+    const placeName = `${cityName}, ${country}`;
+
     return [latitude, longitude, placeName];
 }
+
 
 
 export function clearPredictions() {

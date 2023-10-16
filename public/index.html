@@ -10,44 +10,78 @@
     <link rel="stylesheet" href="/styles/client.css">
     <script src="https://kit.fontawesome.com/144cdf9f3d.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    
+
 </head>
 
 <body>
     <div id="app">
         <div class="container">
-            <h1>Pack <span class="gradient-text">Smartly</span></h1>
-            <label>
-                <h2>Destination</h2>
-                <div class="searchField" id="searchBar">
-                    <input id="city-input" v-model="city" @input="updateSearchQuery(city)" @focus="clearPredictions"
-                        placeholder="Search...">
-                    <button @click="search(city)"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
-                </div>
-                <ul v-if="predictions.length" class="predictions">
-                    <li v-for="prediction in predictions" @click="runSearch(prediction)">{{ prediction.description }}
-                    </li>
-                </ul>
-            </label>
-
-            <div id="map"></div>
-
-            <div class="weather-display" v-if="combinedData.length > 0">
-                <h2>Weather for {{ selectedLocation[2] }}</h2>
-                <ul class="horizontal-table">
-                    <li v-for="(forecast, index) in combinedData" :key="index" class="horizontal-table__item">
-                        <p>Day: {{ forecast.dayNum }}</p>
-                        <p>Average Temperature: {{ forecast.avgTemp }}°C</p>
-                        <p>Rainfall: {{ forecast.rainfall }} mm</p>
-                        <p>Average Wind Speed: {{ forecast.avgWindSpeed }} m/s</p>
-                        <p>Pack for {{ forecast.weatherType }} weather</p>
-                        <p v-if="forecast.itRains">Need an umbrella</p>
-                        <p v-else>No Rain</p>
-                        <p v-if="forecast.needMask">Mask is needed</p>
-                        <p v-else>No mask necessary</p>
-                    </li>
-                </ul>
+            <div id="topBar">
+                <h1><span class="gradient-text">Weather</span> Planner</span></h1>
+                <span><h6>Made by Laura Golec</h6></span>
             </div>
+            <div id="bottomBox">
+                <div id="leftBox">
+                    <div id="blurb">
+                        <h2 class="gradient-text">
+                            Going on vacation?
+                        </h2>
+                        <h4>
+                            This is the essential tool for your weather and packing needs. Get precise forecasts and smart packing
+                            advice to stay prepared for every adventure. Get started by inputting your destination below.
+                        </h4>
+                        <div id="horizontal-line"></div>
+                    </div>
+                    <div class="searchNav" id="searchNav">
+                        <div id="searchAndPredictions">
+                            <div class="searchField" id="searchBar">
+                                <input id="city-input" v-model="city" @input="updateSearchQuery(city)"
+                                    @focus="clearPredictions" @keyup.enter="selectTopPrediction"
+                                    placeholder="Your Destination...">
+                            </div>
+                            <ul v-if="predictions.length" class="predictions">
+                                <li v-for="prediction in predictions" @click="runSearch(prediction)">{{
+                                    prediction.description }}</li>
+                            </ul>
+                        </div>
+
+                        <label class="toggle">
+                            <span class="label-text">Map</span>
+                            <input type="checkbox" @click="openMapView" id="mapToggle" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div id="map"></div>
+                </div>
+
+                <div id="rightBox">
+                    <div class="weather-display" v-if="combinedData.length > 0">
+                        <h2>Weather for {{ selectedLocation[2] }}</h2>
+                        <ul class="horizontal-table">
+                            <li v-for="(forecast, index) in combinedData" :key="index" class="horizontal-table__item">
+                                <p>Day: {{ forecast.dayNum }}</p>
+                                <p>Temperature: {{ forecast.avgTemp }}°C</p>
+                                <p>Rainfall: {{ forecast.rainfall }} mm</p>
+                                <p>Wind Speed: {{ forecast.avgWindSpeed }} m/s</p>
+                                <p>Pack for {{ forecast.weatherType }} weather</p>
+                                <p v-if="forecast.itRains">Need an umbrella</p>
+                                <p v-else>No umbrella necessary</p>
+                                <p v-if="forecast.needMask">Mask is needed</p>
+                                <p v-else>No mask necessary</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="packing-summary" v-if="combinedData.length > 0">
+                        <h3>Packing Summary:</h3>
+                        <p>Pack for {{ packingSummary.coldWeatherDays }} days of cold weather,</p>
+                        <p>Pack for {{ packingSummary.mildWeatherDays }} days of mild weather,</p>
+                        <p>Pack for {{ packingSummary.hotWeatherDays }} days of hot weather,</p>
+                        <p>{{ packingSummary.umbrellaNeeded ? 'Bring an umbrella' : 'No need for an umbrella' }},</p>
+                        <p>Bring at least {{ packingSummary.maskCount }} masks</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <script type="module" src="client.js" async defer></script>
